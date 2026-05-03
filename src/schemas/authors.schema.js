@@ -24,7 +24,7 @@ const authorSchema = z.object({
         .trim()
         .optional(),
     photo: z
-        .string()
+        .url('La URL de la foto no es válida')
         .optional()
         .nullable()
 });
