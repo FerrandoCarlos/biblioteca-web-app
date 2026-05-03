@@ -18,7 +18,7 @@ class GenresModel {
             );
             return rows[0] ?? null;
         } catch (error) {
-            throw new Error(`Error al obtener géneros: ${error.message}`);
+            throw new Error(`Error al obtener género: ${error.message}`);
         }
     }
 
@@ -28,7 +28,7 @@ class GenresModel {
                 'CALL insert_genre($1)', [description]
             );
         } catch (error) {
-            throw new Error(`Error al insertar géneros: ${error.message}`);
+            throw new Error(`Error al insertar género: ${error.message}`);
         }
     }
 
@@ -38,7 +38,7 @@ class GenresModel {
                 'CALL update_genre($1,$2)', [id, description]
             )
         } catch (error) {
-            throw new Error(`Error al actualizar géneros: ${error.message}`);
+            throw new Error(`Error al actualizar género: ${error.message}`);
         }
     }
 
@@ -48,7 +48,7 @@ class GenresModel {
                 'CALL delete_genre($1)', [id]
             )
         } catch (error) {
-            throw new Error(`Error al eliminar géneros: ${error.message}`);
+            throw new Error(`Error al eliminar género: ${error.message}`);
         }
     }
 }
