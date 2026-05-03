@@ -49,7 +49,7 @@ class BooksModel {
 
     async update(isbn, title, description, genre_id, year, pages, author_ids, percentages) {
         try {
-            await db.query('CALL books_insert_with_authors($1,$2,$3,$4,$5,$6,$7,$8)',
+            await db.query('CALL books_update_with_authors($1,$2,$3,$4,$5,$6,$7,$8)',
                 [isbn, title, description, genre_id, year, pages, author_ids, percentages]
             );
         } catch (error) {
