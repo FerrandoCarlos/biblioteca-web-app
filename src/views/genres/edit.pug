@@ -1,0 +1,16 @@
+extends ../layout/layout.pug
+
+block metadata
+  title Editar Género | Biblioteca
+  meta(name='description', content='Editar género literario')
+
+block content
+  include ../mixins/components.pug
+  .flex.justify-between.items-center.mb-6
+    h1.text-2xl.font-medium.text-primary-900 Editar Género
+    a(href='/genres' class='px-4 py-2 rounded-lg border border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors') Volver
+  +card('Datos del género')
+    +alert(errors)
+    form(action=`/genres/${genre.id}/edit` method='POST')
+      +input('Descripción', 'description', 'text', genre.description, 'Ej: Ciencia Ficción')
+      +button('Guardar', 'submit', 'primary')
