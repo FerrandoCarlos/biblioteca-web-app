@@ -1,0 +1,31 @@
+// ── Botón ──────────────────────────────────────────
+mixin button(text, type='button', style='primary')
+    button(type=type class=`px-4 py-2 rounded-lg font-medium transition-colors ${style === 'primary' ? 'bg-primary-600 text-primary-50 hover:bg-primary-800' : style === 'danger' ? 'bg-coral-600 text-white hover:bg-coral-800' : 'border border-primary-600 text-primary-600 hover:bg-primary-50'}`)= text
+
+
+// ── Input ──────────────────────────────────────────
+mixin input(label, name, type='text', value='', placeholder='')
+    .flex.flex-col.gap-1.mb-4 
+        label.text-sm.font-medium.text-primary-900(for=name)= label
+        input(
+            type=type
+            id=name
+            name=name 
+            value=value 
+            placeholder=placeholder 
+            class='border border-primary-200 rounded-lg px-3 py-2 focus:outline-none focus:border-primary-600'
+        ) 
+
+// ── Alert de errores ───────────────────────────────
+mixin alert(errors)
+    if errors && errors.length 
+        .bg-coral-200.text-coral-600.rounded-lg.p-4.mb-4 
+            ul 
+                each err in errors 
+                    li.text-sm= err.message 
+// ── Card ───────────────────────────────
+mixin card(title)
+    div.bg-white.rounded-lg.border.border-primary-200.p-6.shadow-sm
+        if title 
+            h2.text-lg.font-medium.text-primary-900.mb-4= title
+        block    

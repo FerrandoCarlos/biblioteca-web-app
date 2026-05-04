@@ -20,5 +20,21 @@ html(lang="es")
                 --color-coral-200: #F0997B;
                 --color-coral-600: #993C1D;
             }
-    body 
+    body.bg-primary-50.min-h-screen 
+        //- ── Navbar ─────────────────────────────────────
+        nav.bg-primary-900.text-primary-50.px-6.py-4
+            div.max-w-6xl.mx-auto.flex.justify-between.items-center
+                a.text-xl.font-medium.tracking-wide(href='/') 📚 Biblioteca
+                ul.flex.gap-6
+                    li
+                        a(href='/genres' class='hover:text-teal-200 transition-colors') Géneros
+                    li
+                        a(href='/authors' class='hover:text-teal-200 transition-colors') Autores
+                    li
+                        a(href='/books' class='hover:text-teal-200 transition-colors') Libros
+    //- ── Contenido ──────────────────────────────────
+    main.max-w-6xl.mx-auto.px-6.py-8
         block content
+    //- ── Footer ─────────────────────────────────────
+    footer.bg-primary-900.text-primary-200.text-center.py-4.mt-8
+      p Biblioteca App &copy; 2025 — Programación Web II - By MiloDev
