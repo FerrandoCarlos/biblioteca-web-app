@@ -26,6 +26,7 @@ app.set('view engine', 'pug');
 app.set('views', join(__dirname, 'src/views'));
 
 // ── Routes ───────────────────────────────────────────
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.get('/', (req, res) => {
     res.render('index');
 });

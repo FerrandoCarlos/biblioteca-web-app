@@ -1,0 +1,10 @@
+extends layout/layout.pug
+
+block metadata 
+    title Error #{status}
+    meta(name='description', content='Página de error')
+
+block content 
+    h1 Error #{status}
+    p #{message}
+    a(href="/") Volver al inicio 
