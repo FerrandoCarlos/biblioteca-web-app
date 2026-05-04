@@ -1,0 +1,23 @@
+extends ../layout/layout.pug
+
+block metadata
+  title Géneros | Biblioteca
+  meta(name='description', content='Listado de géneros literarios')
+
+block content
+  include ../mixins/components.pug
+  .flex.justify-between.items-center.mb-6
+    h1.text-2xl.font-medium.text-primary-900 Géneros
+    a(href='/genres/create' class='px-4 py-2 rounded-lg bg-primary-600 text-primary-50 hover:bg-primary-800 transition-colors') + Nuevo género
+  if genres && genres.length
+    .grid.grid-cols-1.gap-4
+      each genre in genres
+        +card()
+          .flex.justify-between.items-center
+            span.text-primary-900.font-medium= genre.description
+            .flex.gap-2
+              a(href=`/genres/${genre.id}/edit` class='px-3 py-1 rounded-lg border border-primary-600 text-primary-600 hover:bg-primary-50 text-sm transition-colors') Editar
+              form(action=`/genres/${genre.id}/delete` method='POST')
+                button(type='submit' class='px-3 py-1 rounded-lg bg-coral-600 text-white hover:bg-coral-800 text-sm transition-colors') Eliminar
+  else
+    p.text-primary-200 No hay géneros cargados todavía
