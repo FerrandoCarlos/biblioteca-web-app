@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { errorHandler, notFound } from './src/middlewares/error.middlewares.js';
 
 dotenv.config();
 
@@ -15,13 +16,21 @@ const __dirname = dirname(__filename);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(join(__dirname, 'src/public')));
+
 // ── Template engine ──────────────────────────────────
 app.set('view engine', 'pug');
 app.set('views', join(__dirname, 'src/views'));
+
 // ── Routes ───────────────────────────────────────────
 app.get('/', (req, res) => {
     res.render('index');
 });
+
+// ── Error handling ───────────────────────────────────
+// Debe ir SIEMPRE al final, después de todas las rutas
+app.use(notFound);
+app.use(errorHandler);
+
 // ── Server ───────────────────────────────────────────
 app.listen(PORT, () => {
     console.log(`Servidor corriendo desde http://localhost:${PORT}`);

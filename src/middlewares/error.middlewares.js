@@ -1,4 +1,5 @@
-// Centralizamos los errores
+// Centraliza el manejo de errores de toda la aplicación
+// Debe registrarse ÚLTIMO en app.js después de todas las rutas
 const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
 
@@ -10,7 +11,8 @@ const errorHandler = (err, req, res, next) => {
         message
     });
 }
-// Capturar rutas inexistentes
+// Captura rutas que no existen y las deriva al errorHandler
+// Debe registrarse ANTES del errorHandler en app.js
 const notFound = (req, res, next) => {
     const err = new Error(`Ruta ${req.originalUrl} no encontrada`);
 

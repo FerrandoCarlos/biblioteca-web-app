@@ -53,7 +53,7 @@ class BooksModel {
                 [isbn, title, description, genre_id, year, pages, author_ids, percentages]
             );
         } catch (error) {
-            throw new Error(`Error al insertar libro: ${error.message}`);
+            throw new Error(`Error al actualizar libro: ${error.message}`);
         }
     }
 

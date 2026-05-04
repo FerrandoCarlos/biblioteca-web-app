@@ -1,4 +1,6 @@
-// validación de datos antes de llegar a controller
+// HOF (Higher Order Function) que recibe un schema de Zod
+// y retorna un middleware que valida req.body antes de llegar al controller
+// Si la validación falla retorna los errores, si pasa limpia los datos
 const validate = (schema) => (req, res, next) => {
     const result = schema.safeParse(req.body);
 

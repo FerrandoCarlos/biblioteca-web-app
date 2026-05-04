@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { pool } = pg;
+const { Pool } = pg;
 
 class Database {
     static #instance = null;
