@@ -2,7 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { errorHandler, notFound } from './src/middlewares/error.middlewares.js';
+import { errorHandler, notFound } from './src/middlewares/error.middleware.js';
+import genresRoutes from './src/routes/genres.routes.js';
+import authorsRoutes from './src/routes/authors.routes.js';
+import booksRoutes from './src/routes/books.routes.js';
+
 
 dotenv.config();
 
@@ -25,6 +29,9 @@ app.set('views', join(__dirname, 'src/views'));
 app.get('/', (req, res) => {
     res.render('index');
 });
+app.use('/genres', genresRoutes);
+app.use('/authors', authorsRoutes);
+app.use('/books', booksRoutes);
 
 // ── Error handling ───────────────────────────────────
 // Debe ir SIEMPRE al final, después de todas las rutas
