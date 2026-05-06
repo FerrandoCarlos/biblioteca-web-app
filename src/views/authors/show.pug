@@ -1,0 +1,33 @@
+extends ../layout/layout.pug
+
+block metadata
+  title= `${author.first_name} ${author.last_name} | Biblioteca`
+  meta(name='description', content='Biografía del autor')
+
+block content
+  include ../mixins/components.pug
+  .flex.justify-between.items-center.mb-6
+    h1.text-2xl.font-medium.text-primary-900= `${author.first_name} ${author.last_name}`
+    a(href='/authors' class='px-4 py-2 rounded-lg border border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors') Volver
+
+  +card('Datos del autor')
+    .flex.items-center.gap-6
+      if author.photo
+        img.w-24.h-24.rounded-full.object-cover(src=author.photo alt=`${author.first_name} ${author.last_name}`)
+      else
+        .w-24.h-24.rounded-full.bg-primary-200.flex.items-center.justify-center
+          span.text-2xl.font-medium.text-primary-800= author.first_name[0] + author.last_name[0]
+      div
+        p.text-lg.font-medium.text-primary-900= `${author.first_name} ${author.last_name}`
+        p.text-sm.text-primary-200= author.email
+        p.text-sm.text-primary-200= author.id_card
+
+  +card('Libros del autor')
+    if books && books.length
+      .grid.grid-cols-1.gap-4
+        each book in books
+          .flex.justify-between.items-center.py-2.border-b.border-primary-200
+            span.text-primary-900.font-medium= book.title
+            span.text-sm.text-primary-200= `${book.participation_pct}% de participación`
+    else
+      p.text-primary-200 Este autor no tiene libros cargados todavía

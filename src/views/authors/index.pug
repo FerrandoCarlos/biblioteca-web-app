@@ -1,0 +1,32 @@
+extends ../layout/layout.pug
+
+block metadata
+  title Autores | Biblioteca
+  meta(name='description', content='Listado de autores')
+
+block content
+  include ../mixins/components.pug
+  .flex.justify-between.items-center.mb-6
+    h1.text-2xl.font-medium.text-primary-900 Autores
+    a(href='/authors/create' class='px-4 py-2 rounded-lg bg-primary-600 text-primary-50 hover:bg-primary-800 transition-colors') + Nuevo autor
+  if authors && authors.length
+    .grid.grid-cols-1.gap-4
+      each author in authors
+        +card()
+          .flex.justify-between.items-center
+            .flex.items-center.gap-4
+              if author.photo
+                img.w-12.h-12.rounded-full.object-cover(src=author.photo alt=author.name)
+              else
+                .w-12.h-12.rounded-full.bg-primary-200.flex.items-center.justify-center
+                  span.text-primary-800.font-medium= author.first_name[0] + author.last_name[0]
+              div
+                p.font-medium.text-primary-900= `${author.first_name} ${author.last_name}`
+                p.text-sm.text-primary-200= author.email
+            .flex.gap-2
+              a(href=`/authors/${author.id}` class='px-3 py-1 rounded-lg border border-teal-400 text-teal-400 hover:bg-teal-200 text-sm transition-colors') Ver
+              a(href=`/authors/${author.id}/edit` class='px-3 py-1 rounded-lg border border-primary-600 text-primary-600 hover:bg-primary-50 text-sm transition-colors') Editar
+              form(action=`/authors/${author.id}/delete` method='POST')
+                button(type='submit' class='px-3 py-1 rounded-lg bg-coral-600 text-white hover:bg-coral-800 text-sm transition-colors') Eliminar
+  else
+    p.text-primary-200 No hay autores cargados todavía

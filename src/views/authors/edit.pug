@@ -1,0 +1,20 @@
+extends ../layout/layout.pug
+
+block metadata
+  title Editar Autor | Biblioteca
+  meta(name='description', content='Editar autor')
+
+block content
+  include ../mixins/components.pug
+  .flex.justify-between.items-center.mb-6
+    h1.text-2xl.font-medium.text-primary-900 Editar Autor
+    a(href='/authors' class='px-4 py-2 rounded-lg border border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors') Volver
+  +card('Datos del autor')
+    +alert(errors)
+    form(action=`/authors/${author.id}/edit` method='POST')
+      +input('Nombre', 'first_name', 'text', author.first_name, 'Ej: Gabriel')
+      +input('Apellido', 'last_name', 'text', author.last_name, 'Ej: García Márquez')
+      +input('Documento', 'id_card', 'text', author.id_card, 'Ej: 12345678')
+      +input('Email', 'email', 'email', author.email, 'Ej: autor@mail.com')
+      +input('Foto (URL)', 'photo', 'url', author.photo, 'https://...')
+      +button('Guardar', 'submit', 'primary')
