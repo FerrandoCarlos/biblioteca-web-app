@@ -1,7 +1,7 @@
 import authorsModel from '../models/authors.model.js';
 import authorSchema from '../schemas/authors.schema.js'
 import parseErrors from '../utils/parseErrors.js';
-
+import genresModel from '../models/genres.model.js';
 const getAll = async (req, res, next) => {
     try {
         const authors = await authorsModel.getAll();
@@ -94,12 +94,14 @@ const remove = async (req, res, next) => {
 
 const getByGenreParticipation = async (req, res, next) => {
     try {
-        const { genre_id } = req.params;
-        const authors = await authorsModel.getByGenreParticipation(genre_id);
-        res.render('authors/by-genre', { authors });
+        const { genre_id } = req.query
+        const genres = await genresModel.getAll()
+        const authors = genre_id
+            ? await authorsModel.getGenreParticipation(genre_id)
+            : []
+        res.render('authors/by-genre', { authors, genres, genre_id })
     } catch (error) {
-        next(error);
+        next(error)
     }
-};
-
+}
 export { getAll, getById, edit, create, insert, update, remove, getByGenreParticipation };

@@ -21,7 +21,6 @@ block content
         p.text-lg.font-medium.text-primary-900= `${author.first_name} ${author.last_name}`
         p.text-sm.text-primary-200= author.email
         p.text-sm.text-primary-200= author.id_card
-
   +card('Libros del autor')
     if books && books.length
       .grid.grid-cols-1.gap-4
