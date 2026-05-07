@@ -24,7 +24,20 @@ const getById = async (req, res, next) => {
         next(error);
     }
 };
+// getById está mostrando show, no edit
+// Necesitamos una función edit separada
+const edit = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const author = await authorsModel.getById(id);
 
+        if (!author) return res.redirect('/authors');
+
+        res.render('authors/edit', { author, errors: [] });
+    } catch (error) {
+        next(error);
+    }
+};
 const create = async (req, res, next) => {
     try {
         res.render('authors/create');
@@ -89,4 +102,4 @@ const getByGenreParticipation = async (req, res, next) => {
     }
 };
 
-export { getAll, getById, create, insert, update, remove, getByGenreParticipation };
+export { getAll, getById, edit, create, insert, update, remove, getByGenreParticipation };
