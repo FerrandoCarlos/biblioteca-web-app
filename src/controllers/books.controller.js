@@ -115,4 +115,13 @@ const getByMinPages = async (req, res, next) => {
     }
 }
 
-export { getAll, getByIsbn, create, insert, edit, update, remove, getByMinPages };
+const getAuthorPhotos = async (req, res, next) => {
+    try {
+        const { isbn } = req.params
+        const authors = await booksModel.getAuthorsByBook(isbn)
+        res.render('books/authors-photos', { authors })
+    } catch (error) {
+        next(error)
+    }
+}
+export { getAll, getByIsbn, create, insert, edit, update, remove, getByMinPages, getAuthorPhotos };

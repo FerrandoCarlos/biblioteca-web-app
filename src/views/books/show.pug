@@ -43,3 +43,5 @@ block content
             span.text-sm.text-primary-200= `${author.participation_pct}% participación`
     else
       p.text-primary-200 No hay autores cargados todavía
+  +card('Fotos de autores')
+    a(href=`/books/${book.isbn}/authors-photos` class='px-4 py-2 rounded-lg bg-primary-600 text-primary-50 hover:bg-primary-800 transition-colors') Ver fotos de autores

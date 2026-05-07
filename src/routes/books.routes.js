@@ -12,5 +12,6 @@ router.get('/:isbn', booksController.getByIsbn)
 router.get('/:isbn/edit', booksController.edit)
 router.post('/:isbn/edit', booksController.update)
 router.post('/:isbn/delete', booksController.remove)
+router.get('/:isbn/authors-photos', booksController.getAuthorPhotos)
 
 export default router
