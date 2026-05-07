@@ -39,29 +39,40 @@ class BooksModel {
 
     async insert(isbn, title, description, genre_id, year, pages, author_ids, percentages) {
         try {
-            await db.query('CALL books_insert_with_authors($1,$2,$3,$4,$5,$6,$7,$8)',
-                [isbn, title, description, genre_id, year, pages, author_ids, percentages]
-            );
+            await db.transaction(async (client) => {
+                await client.query(
+                    'CALL books_insert_with_authors($1,$2,$3,$4,$5,$6,$7,$8)',
+                    [isbn, title, description, genre_id, year, pages, author_ids, percentages]
+                )
+            })
         } catch (error) {
-            throw new Error(`Error al insertar libro: ${error.message}`);
+            throw new Error(`Error al insertar libro: ${error.message}`)
         }
     }
 
     async update(isbn, title, description, genre_id, year, pages, author_ids, percentages) {
         try {
-            await db.query('CALL books_update_with_authors($1,$2,$3,$4,$5,$6,$7,$8)',
-                [isbn, title, description, genre_id, year, pages, author_ids, percentages]
-            );
+            await db.transaction(async (client) => {
+                await client.query(
+                    'CALL books_update_with_authors($1,$2,$3,$4,$5,$6,$7,$8)',
+                    [isbn, title, description, genre_id, year, pages, author_ids, percentages]
+                )
+            })
         } catch (error) {
-            throw new Error(`Error al actualizar libro: ${error.message}`);
+            throw new Error(`Error al actualizar libro: ${error.message}`)
         }
     }
 
     async delete(isbn) {
         try {
-            await db.query('CALL books_delete_with_authors($1)', [isbn]);
+            await db.transaction(async (client) => {
+                await client.query(
+                    'CALL books_delete_with_authors($1)',
+                    [isbn]
+                )
+            })
         } catch (error) {
-            throw new Error(`Error al eliminar libro: ${error.message}`);
+            throw new Error(`Error al eliminar libro: ${error.message}`)
         }
     }
 }
