@@ -1,0 +1,45 @@
+extends ../layout/layout.pug
+
+block metadata
+  title= `${book.title} | Biblioteca`
+  meta(name='description', content='Detalle del libro')
+
+block content
+  include ../mixins/components.pug
+  .flex.justify-between.items-center.mb-6
+    h1.text-2xl.font-medium.text-primary-900= book.title
+    a(href='/books' class='px-4 py-2 rounded-lg border border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors') Volver
+
+  +card('Datos del libro')
+    .grid.grid-cols-2.gap-4
+      div
+        p.text-sm.text-primary-200 ISBN
+        p.font-medium.text-primary-900= book.isbn
+      div
+        p.text-sm.text-primary-200 Género
+        p.font-medium.text-primary-900= book.genre
+      div
+        p.text-sm.text-primary-200 Año
+        p.font-medium.text-primary-900= book.year
+      div
+        p.text-sm.text-primary-200 Páginas
+        p.font-medium.text-primary-900= book.pages_number
+      div.col-span-2
+        p.text-sm.text-primary-200 Descripción
+        p.font-medium.text-primary-900= book.description
+
+  +card('Autores del libro')
+    if authors && authors.length
+      .grid.grid-cols-1.gap-4
+        each author in authors
+          .flex.justify-between.items-center.py-2.border-b.border-primary-200
+            .flex.items-center.gap-3
+              if author.photo
+                img.w-10.h-10.rounded-full.object-cover(src=author.photo alt=author.first_name)
+              else
+                .w-10.h-10.rounded-full.bg-primary-200.flex.items-center.justify-center
+                  span.text-sm.font-medium.text-primary-800= author.first_name[0] + author.last_name[0]
+              a(href=`/authors/${author.author_id}` class='font-medium text-primary-600 hover:text-primary-800')= `${author.first_name} ${author.last_name}`
+            span.text-sm.text-primary-200= `${author.participation_pct}% participación`
+    else
+      p.text-primary-200 No hay autores cargados todavía

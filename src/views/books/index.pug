@@ -1,0 +1,26 @@
+extends ../layout/layout.pug
+
+block metadata
+  title Libros | Biblioteca
+  meta(name='description', content='Listado de libros')
+
+block content
+  include ../mixins/components.pug
+  .flex.justify-between.items-center.mb-6
+    h1.text-2xl.font-medium.text-primary-900 Libros
+    a(href='/books/create' class='px-4 py-2 rounded-lg bg-primary-600 text-primary-50 hover:bg-primary-800 transition-colors') + Nuevo libro
+  if books && books.length
+    .grid.grid-cols-1.gap-4
+      each book in books
+        +card()
+          .flex.justify-between.items-center
+            div
+              p.font-medium.text-primary-900= book.title
+              p.text-sm.text-primary-200= `${book.genre} — ${book.year} — ${book.pages_number} páginas`
+            .flex.gap-2
+              a(href=`/books/${book.isbn}` class='px-3 py-1 rounded-lg border border-teal-400 text-teal-400 hover:bg-teal-200 text-sm transition-colors') Ver
+              a(href=`/books/${book.isbn}/edit` class='px-3 py-1 rounded-lg border border-primary-600 text-primary-600 hover:bg-primary-50 text-sm transition-colors') Editar
+              form(action=`/books/${book.isbn}/delete` method='POST')
+                button(type='submit' class='px-3 py-1 rounded-lg bg-coral-600 text-white hover:bg-coral-800 text-sm transition-colors') Eliminar
+  else
+    p.text-primary-200 No hay libros cargados todavía

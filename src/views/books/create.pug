@@ -1,0 +1,44 @@
+extends ../layout/layout.pug
+
+block metadata
+  title Nuevo Libro | Biblioteca
+  meta(name='description', content='Crear nuevo libro')
+
+block content
+  include ../mixins/components.pug
+  .flex.justify-between.items-center.mb-6
+    h1.text-2xl.font-medium.text-primary-900 Nuevo Libro
+    a(href='/books' class='px-4 py-2 rounded-lg border border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors') Volver
+
+  +card('Datos del libro')
+    +alert(errors)
+    form(action='/books' method='POST')
+      +input('ISBN', 'isbn', 'text', '', 'Ej: 978-0-06-112008-4')
+      +input('Título', 'title', 'text', '', 'Ej: Cien Años de Soledad')
+      +input('Descripción', 'description', 'text', '', 'Breve descripción')
+      +input('Año', 'year', 'number', '', 'Ej: 1967')
+      +input('Páginas', 'pages_number', 'number', '', 'Ej: 471')
+
+      .flex.flex-col.gap-1.mb-4
+        label.text-sm.font-medium.text-primary-900(for='genre_id') Género
+        select#genre_id.border.border-primary-200.rounded-lg.px-3.py-2(name='genre_id')
+          option(value='') Seleccioná un género
+          each genre in genres
+            option(value=genre.id)= genre.description
+
+      .flex.flex-col.gap-1.mb-4
+        label.text-sm.font-medium.text-primary-900 Autores
+        each author in authors
+          .flex.items-center.gap-3.mb-2
+            input(type='checkbox' name='author_ids' value=author.id id=`author_${author.id}`)
+            label(for=`author_${author.id}`)= `${author.first_name} ${author.last_name}`
+            input(
+              type='number'
+              name='percentages'
+              placeholder='% participación'
+              min='0'
+              max='100'
+              class='border border-primary-200 rounded-lg px-2 py-1 w-32'
+            )
+
+      +button('Guardar', 'submit', 'primary')
