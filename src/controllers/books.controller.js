@@ -107,8 +107,8 @@ const remove = async (req, res, next) => {
 
 const getByMinPages = async (req, res, next) => {
     try {
-        const { min_pages } = req.params;
-        const books = await booksModel.getByMinPages(min_pages);
+        const { min_pages } = req.query;
+        const books = await booksModel.getByMinPages(min_pages ?? 0);
         res.render('books/by-pages', { books, min_pages });
     } catch (error) {
         next(error);

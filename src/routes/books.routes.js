@@ -7,7 +7,7 @@ const router = Router();
 router.get('/', booksController.getAll);
 router.get('/create', booksController.create)
 router.post('/', booksController.insert)
-router.get('/pages/:min_pages', booksController.getByMinPages)
+router.get('/pages', booksController.getByMinPages)
 router.get('/:isbn', booksController.getByIsbn)
 router.get('/:isbn/edit', booksController.edit)
 router.post('/:isbn/edit', booksController.update)
